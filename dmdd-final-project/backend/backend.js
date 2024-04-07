@@ -1,5 +1,6 @@
 const express = require('express');
-const router = require('./routes/getRoutes');
+const getDataRouter = require('./routes/getRoutes');
+const postDataRouter = require('./routes/postRoutes'); 
 const sequelize = require('./databaseConnection/connection');
 
 const app = express();
@@ -9,7 +10,8 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 // Mount the router on the '/api' path
-app.use('/api', router);
+app.use('/api', getDataRouter); // Use existing router for GET requests
+app.use('/api', postDataRouter); // Use new router for POST requests
 
 // Error handling middleware
 app.use((err, req, res, next) => {
