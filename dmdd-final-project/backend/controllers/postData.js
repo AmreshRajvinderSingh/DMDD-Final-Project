@@ -130,6 +130,11 @@ const createEmployee = async (req, res) => {
 
     res.status(201).json(newEmployee); // Respond with the created employee
   } catch (error) {
+    
+      if (error.name === 'SequelizeUniqueConstraintError' && error.fields && error.fields.PK__Employee__7AD04FF1BA830854) {
+        
+        return res.status(400).json({ error: 'EmployeeID already exists', errorCode: 'EMPLOYEE_ID_EXISTS' });
+      }
     console.error('Error creating employee:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
@@ -157,27 +162,37 @@ const createOrderDetail = async (req, res) => {
   };
 
 
-const createOrder = async (req, res) => {
-  try {
-    const { OrderID, CustomerID, EmployeeID, OrderDate, ShipDate, ShippingAddress, Status } = req.body;
-
-    // Create a new Orders record
-    const newOrder = await models.Orders.create({
-      OrderID,
-      CustomerID,
-      EmployeeID,
-      OrderDate,
-      ShipDate,
-      ShippingAddress,
-      Status
-    });
-
-    res.status(201).json(newOrder); // Respond with the created Orders
-  } catch (error) {
-    console.error('Error creating Orders:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-};
+  const createOrder = async (req, res) => {
+    try {
+      const { OrderID, CustomerID, EmployeeID, OrderDate, ShipDate, ShippingAddress, Status } = req.body;
+  
+      // Validate required fields
+      if (!CustomerID || !EmployeeID || !OrderDate) {
+        return res.status(400).json({ error: 'CustomerID, EmployeeID, and OrderDate are required fields' });
+      }
+  
+      // Create a new Orders record
+      const newOrder = await models.Orders.create({
+        OrderID,
+        CustomerID,
+        EmployeeID,
+        OrderDate,
+        ShipDate,
+        ShippingAddress,
+        Status
+      });
+  
+      res.status(201).json(newOrder); // Respond with the created Orders
+    } catch (error) {
+      if (error.name === 'SequelizeUniqueConstraintError' && error.fields && error.fields.PK__Orders__C3905BAF4FB928EE) {
+        // OrderID already exists
+        return res.status(400).json({ error: `Order with OrderID already exists`, errorCode: 'ORDER_ID_EXISTS' });
+      }
+      console.error('Error creating Orders:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  };
+  
 
 const createProductSupplier = async (req, res) => {
     try {
@@ -199,22 +214,33 @@ const createProductSupplier = async (req, res) => {
 
   const createProduct = async (req, res) => {
     try {
-      const { CategoryID, Name, Description, Price } = req.body;
+      const { Product_ID, CategoryID, Name, Description, Price } = req.body;
   
-      // Create a new Product record
+      // Validate required fields
+      if (!Product_ID || !CategoryID || !Name || !Price) {
+        return res.status(400).json({ error: 'Product_ID, CategoryID, Name, and Price are required fields' });
+      }
+  
+      // Create a new product record
       const newProduct = await models.Product.create({
+        Product_ID,
         CategoryID,
         Name,
         Description,
         Price
       });
   
-      res.status(201).json(newProduct); // Respond with the created Product
+      res.status(201).json(newProduct); // Respond with the created product
     } catch (error) {
-      console.error('Error creating Product:', error);
+      if (error.name === 'SequelizeUniqueConstraintError' && error.fields && error.fields.PK__Product__9834FB9A5C628DCB) {
+        return res.status(400).json({ error: `Product with Product_ID  already exists`, errorCode: 'PRODUCT_ID_EXISTS' });
+      }
+      console.error('Error creating product:', error);
       res.status(500).json({ error: 'Internal Server Error' });
     }
   };
+  
+  
 
   const createPurchaseOrderDetail = async (req, res) => {
     try {
@@ -255,10 +281,11 @@ const createProductSupplier = async (req, res) => {
 
   const createShipment = async (req, res) => {
     try {
-      const { OrderID, ShippedDate, EstimatedArrivalDate, Carrier, TrackingNumber, Status } = req.body;
+      const { ShipmentID, OrderID, ShippedDate, EstimatedArrivalDate, Carrier, TrackingNumber, Status } = req.body;
   
       // Create a new shipment record
       const newShipment = await models.Shipment.create({
+        ShipmentID,
         OrderID,
         ShippedDate,
         EstimatedArrivalDate,
@@ -269,6 +296,10 @@ const createProductSupplier = async (req, res) => {
   
       res.status(201).json(newShipment); // Respond with the created shipment
     } catch (error) {
+      if (error.name === 'SequelizeUniqueConstraintError' && error.fields && error.fields.PK__Shipment__5CAD378DB380239B) {
+        
+        return res.status(400).json({ error: 'ShipmentID already exists', errorCode: 'SHIPMENT_ID_EXISTS' });
+      }
       console.error('Error creating shipment:', error);
       res.status(500).json({ error: 'Internal Server Error' });
     }
@@ -293,10 +324,11 @@ const createProductSupplier = async (req, res) => {
   };
   const createSupplier = async (req, res) => {
     try {
-      const { CompanyName, ContactName, Address, City, Country, Phone, Email } = req.body;
+      const { SupplierID,CompanyName, ContactName, Address, City, Country, Phone, Email } = req.body;
   
       // Create a new supplier record
       const newSupplier = await models.Supplier.create({
+        SupplierID,
         CompanyName,
         ContactName,
         Address,
@@ -308,6 +340,10 @@ const createProductSupplier = async (req, res) => {
   
       res.status(201).json(newSupplier); // Respond with the created supplier
     } catch (error) {
+      if (error.name === 'SequelizeUniqueConstraintError' && error.fields && error.fields.PK__Supplier__4BE66694301EFBDF) {
+        // SupplierID already exists
+        return res.status(400).json({ error: 'SupplierID already exists', errorCode: 'SUPPLIER_ID_EXISTS' });
+      }
       console.error('Error creating supplier:', error);
       res.status(500).json({ error: 'Internal Server Error' });
     }

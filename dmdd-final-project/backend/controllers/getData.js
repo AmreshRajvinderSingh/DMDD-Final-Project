@@ -109,8 +109,8 @@ const models = initModels(sequelize);
   };
   const getAllProducts = async (req, res) => {
     try {
-      console.log('Product model:', models.Category); // Check if Product model is defined
-      const products = await models.Category.findAll();
+      console.log('Product model:', models.Product); // Check if Product model is defined
+      const products = await models.Product.findAll();
       res.status(200).json(products);
     } catch (error) {
       console.error(error);
