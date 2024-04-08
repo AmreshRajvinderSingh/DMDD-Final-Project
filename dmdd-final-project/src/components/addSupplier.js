@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
+import './AddSupplierStyles.css'; // Import the updated CSS file
+ 
 const AddSupplier = () => {
   const [formData, setFormData] = useState({
     SupplierID: '',
@@ -12,15 +13,15 @@ const AddSupplier = () => {
     Phone: '',
     Email: '',
   });
-
+ 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-
+ 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+ 
     try {
       const response = await axios.post('http://localhost:2507/api/suppliers', formData);
       console.log('Supplier created:', response.data);
@@ -41,110 +42,118 @@ const AddSupplier = () => {
       alert('Failed to add supplier. Please try again.');
     }
   };
-
+ 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', margin: '50px 0' }}>
-      <section style={{ width: '400px', border: '1px solid #ccc', padding: '20px', borderRadius: '5px' }}>
-        <h3 style={{ marginBottom: '20px', textAlign: 'center' }}>Add Supplier</h3>
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-            <label htmlFor="supplierID" style={{ minWidth: '120px' }}>Supplier ID</label>
+    <div className="form-container">
+      <section className="form-section">
+        <h3 className="form-title">Add Supplier</h3>
+        <form onSubmit={handleSubmit} className="form-layout">
+          <div className="form-row">
             <input
               type="text"
+              className="form-control"
               id="supplierID"
               name="SupplierID"
+              placeholder="Supplier ID"
               value={formData.SupplierID}
               onChange={handleChange}
               required
-              style={{ flex: '1', marginLeft: '10px' }}
             />
           </div>
-          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-            <label htmlFor="companyName" style={{ minWidth: '120px' }}>Company Name</label>
+ 
+          <div className="form-row">
             <input
               type="text"
+              className="form-control"
               id="companyName"
               name="CompanyName"
+              placeholder="Company Name"
               value={formData.CompanyName}
               onChange={handleChange}
               required
-              style={{ flex: '1', marginLeft: '10px' }}
             />
           </div>
-          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-            <label htmlFor="contactName" style={{ minWidth: '120px' }}>Contact Name</label>
+ 
+          <div className="form-row">
             <input
               type="text"
+              className="form-control"
               id="contactName"
               name="ContactName"
+              placeholder="Contact Name"
               value={formData.ContactName}
               onChange={handleChange}
               required
-              style={{ flex: '1', marginLeft: '10px' }}
             />
           </div>
-          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-            <label htmlFor="address" style={{ minWidth: '120px' }}>Address</label>
+ 
+          <div className="form-row">
             <input
               type="text"
+              className="form-control"
               id="address"
               name="Address"
+              placeholder="Address"
               value={formData.Address}
               onChange={handleChange}
               required
-              style={{ flex: '1', marginLeft: '10px' }}
             />
           </div>
-          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-            <label htmlFor="city" style={{ minWidth: '120px' }}>City</label>
+ 
+          <div className="form-row">
             <input
               type="text"
+              className="form-control"
               id="city"
               name="City"
+              placeholder="City"
               value={formData.City}
               onChange={handleChange}
               required
-              style={{ flex: '1', marginLeft: '10px' }}
             />
           </div>
-          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-            <label htmlFor="country" style={{ minWidth: '120px' }}>Country</label>
+ 
+          <div className="form-row">
             <input
               type="text"
+              className="form-control"
               id="country"
               name="Country"
+              placeholder="Country"
               value={formData.Country}
               onChange={handleChange}
               required
-              style={{ flex: '1', marginLeft: '10px' }}
             />
           </div>
-          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-            <label htmlFor="phone" style={{ minWidth: '120px' }}>Phone</label>
+ 
+          <div className="form-row">
             <input
               type="text"
+              className="form-control"
               id="phone"
               name="Phone"
+              placeholder="Phone"
               value={formData.Phone}
               onChange={handleChange}
               required
-              style={{ flex: '1', marginLeft: '10px' }}
             />
           </div>
-          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-            <label htmlFor="email" style={{ minWidth: '120px' }}>Email</label>
+ 
+          <div className="form-row">
             <input
               type="email"
+              className="form-control"
               id="email"
               name="Email"
+              placeholder="Email"
               value={formData.Email}
               onChange={handleChange}
               required
-              style={{ flex: '1', marginLeft: '10px' }}
             />
           </div>
-          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-            <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>
+ 
+          <div className="form-submit">
+            <button type="submit" className="btn-primary">
               Add Supplier
             </button>
           </div>
@@ -153,5 +162,6 @@ const AddSupplier = () => {
     </div>
   );
 };
-
+ 
 export default AddSupplier;
+ 

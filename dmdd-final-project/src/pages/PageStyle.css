@@ -1,0 +1,21 @@
+/* AddPage.css */
+
+.addButton {
+    font-size: 18px; /* Increase button font size */
+    padding: 10px 20px; /* Add padding to the buttons */
+    margin-right: 10px; /* Add margin between buttons */
+  }
+  
+  /* Optional: Adjust button colors and hover effects */
+  .addButton {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .addButton:hover {
+    background-color: #0056b3;
+  }
+  

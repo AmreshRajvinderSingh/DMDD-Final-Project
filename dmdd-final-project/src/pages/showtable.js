@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import './PageStyle.css'; // Import the CSS file
 
-import AddProduct from '../components/addProduct';
-import AddOrder from '../components/addOrder';
-import AddShipment from '../components/addShipment';
-import AddSupplier from '../components/addSupplier';
-import AddWarehouse from '../components/addWarehouse';
 
-const AddPage = () => {
+import OrderDetailsTable from '../components/oderDetails';
+import OrderTable from '../components/getOrders';
+import ProductTable from '../components/getProduct';
+import ShipmentTable from '../components/getShipments';
+
+const ShowTables = () => {
   const [activeButton, setActiveButton] = useState('');
 
   const handleButtonClick = (buttonName) => {
@@ -17,15 +17,14 @@ const AddPage = () => {
   const renderComponent = () => {
     switch (activeButton) {
       case 'Order':
-        return <AddOrder />;
+        return <OrderTable />;
       case 'Product':
-        return <AddProduct />;
-      case 'Warehouse':
-        return <AddWarehouse />;
+        return <ProductTable />;
+
       case 'Shipment':
-        return <AddShipment />;
-      case 'Supplier':
-        return <AddSupplier />;
+        return <ShipmentTable />;
+      case 'OrderDetails':
+        return <OrderDetailsTable />;
       default:
         return null;
     }
@@ -40,19 +39,17 @@ const AddPage = () => {
         <button className="addButton" onClick={() => handleButtonClick('Product')}>
           Product
         </button>
-        <button className="addButton" onClick={() => handleButtonClick('Warehouse')}>
-          Warehouse
-        </button>
         <button className="addButton" onClick={() => handleButtonClick('Shipment')}>
           Shipment
         </button>
-        <button className="addButton" onClick={() => handleButtonClick('Supplier')}>
-          Supplier
+        <button className="addButton" onClick={() => handleButtonClick('OrderDetails')}>
+          Order Details
         </button>
+    
       </div>
       {renderComponent()}
     </div>
   );
 };
 
-export default AddPage;
+export default ShowTables;

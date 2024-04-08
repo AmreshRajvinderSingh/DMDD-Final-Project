@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
-
+import './AddOrderStyles.css'; // Make sure to import the CSS file
+ 
 const AddOrder = () => {
   const [formData, setFormData] = useState({
     OrderID: '',
@@ -11,19 +12,17 @@ const AddOrder = () => {
     ShippingAddress: '',
     Status: '',
   });
-
+ 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-
+ 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const response = await axios.post('http://localhost:2507/api/orders', formData);
       console.log('Order created:', response.data);
-      // Optionally reset the form after successful submission
       setFormData({
         OrderID: '',
         CustomerID: '',
@@ -39,17 +38,18 @@ const AddOrder = () => {
       alert('Failed to add order. Please try again.');
     }
   };
-
+ 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', margin: '0 10%' }}>
-      <section>
-        <h3>Add Order</h3>
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-            <label htmlFor="orderID" className="form-label" style={{ minWidth: '120px' }}>
+<div className="form-container">
+<section className="form-section">
+<h3 className="form-title">Add Order</h3>
+<form onSubmit={handleSubmit} className="form-layout">
+          {/* Input fields for OrderID */}
+<div className="form-row">
+<label htmlFor="orderID" className="form-label">
               Order ID
-            </label>
-            <input
+</label>
+<input
               type="text"
               className="form-control"
               id="orderID"
@@ -57,14 +57,15 @@ const AddOrder = () => {
               value={formData.OrderID}
               onChange={handleChange}
               required
-              style={{ flex: '1' }}
             />
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-            <label htmlFor="customerID" className="form-label" style={{ minWidth: '120px' }}>
+</div>
+ 
+          {/* Input fields for CustomerID */}
+<div className="form-row">
+<label htmlFor="customerID" className="form-label">
               Customer ID
-            </label>
-            <input
+</label>
+<input
               type="text"
               className="form-control"
               id="customerID"
@@ -72,14 +73,15 @@ const AddOrder = () => {
               value={formData.CustomerID}
               onChange={handleChange}
               required
-              style={{ flex: '1' }}
             />
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-            <label htmlFor="employeeID" className="form-label" style={{ minWidth: '120px' }}>
+</div>
+ 
+          {/* Input fields for EmployeeID */}
+<div className="form-row">
+<label htmlFor="employeeID" className="form-label">
               Employee ID
-            </label>
-            <input
+</label>
+<input
               type="text"
               className="form-control"
               id="employeeID"
@@ -87,14 +89,15 @@ const AddOrder = () => {
               value={formData.EmployeeID}
               onChange={handleChange}
               required
-              style={{ flex: '1' }}
             />
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-            <label htmlFor="orderDate" className="form-label" style={{ minWidth: '120px' }}>
+</div>
+ 
+          {/* Input fields for OrderDate */}
+<div className="form-row">
+<label htmlFor="orderDate" className="form-label">
               Order Date
-            </label>
-            <input
+</label>
+<input
               type="date"
               className="form-control"
               id="orderDate"
@@ -102,14 +105,15 @@ const AddOrder = () => {
               value={formData.OrderDate}
               onChange={handleChange}
               required
-              style={{ flex: '1' }}
             />
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-            <label htmlFor="shipDate" className="form-label" style={{ minWidth: '120px' }}>
-              Ship Date
-            </label>
-            <input
+</div>
+ 
+          {/* Input fields for ShipDate */}
+<div className="form-row">
+<label htmlFor="shipDate" className="form-label">
+              Shipping Date
+</label>
+<input
               type="date"
               className="form-control"
               id="shipDate"
@@ -117,52 +121,50 @@ const AddOrder = () => {
               value={formData.ShipDate}
               onChange={handleChange}
               required
-              style={{ flex: '1' }}
             />
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-            <label htmlFor="shippingAddress" className="form-label" style={{ minWidth: '120px' }}>
+</div>
+ 
+          {/* Input fields for ShippingAddress */}
+<div className="form-row">
+<label htmlFor="shippingAddress" className="form-label">
               Shipping Address
-            </label>
-            <input
-              type="text"
+</label>
+<textarea
               className="form-control"
               id="shippingAddress"
               name="ShippingAddress"
               value={formData.ShippingAddress}
               onChange={handleChange}
               required
-              style={{ flex: '1' }}
             />
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-            <label htmlFor="status" className="form-label" style={{ minWidth: '120px' }}>
+</div>
+ 
+          {/* Input fields for Status */}
+<div className="form-row">
+<label htmlFor="status" className="form-label">
               Status
-            </label>
-            <select
+</label>
+<input
+              type="text"
               className="form-control"
               id="status"
               name="Status"
               value={formData.Status}
               onChange={handleChange}
               required
-              style={{ flex: '1' }}
-            >
-              <option value="">Select Status</option>
-              <option value="Shipped">Shipped</option>
-              <option value="Pending">Pending</option>
-              <option value="Delivered">Delivered</option>
-            </select>
-          </div>
-          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-            <button type="submit" className="btn btn-primary" style={{ width: '200px' }}>
+            />
+</div>
+ 
+          {/* Submit button */}
+<div className="form-submit">
+<button type="submit" className="btn-primary">
               Add Order
-            </button>
-          </div>
-        </form>
-      </section>
-    </div>
+</button>
+</div>
+</form>
+</section>
+</div>
   );
 };
-
+ 
 export default AddOrder;

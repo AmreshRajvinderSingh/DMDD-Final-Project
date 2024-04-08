@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
+import './AddShipmentStyles.css'; // Import the updated CSS file
+ 
 const AddShipment = () => {
   const [formData, setFormData] = useState({
     ShipmentID: '',
@@ -11,19 +12,17 @@ const AddShipment = () => {
     TrackingNumber: '',
     Status: 'Pending', // Default status
   });
-
+ 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-
+ 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const response = await axios.post('http://localhost:2507/api/shipments', formData);
       console.log('Shipment created:', response.data);
-      // Reset form after successful submission
       setFormData({
         ShipmentID: '',
         OrderID: '',
@@ -39,101 +38,107 @@ const AddShipment = () => {
       alert('Failed to add shipment. Please try again.');
     }
   };
-
+ 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', margin: '50px 0' }}>
-      <section style={{ width: '400px', border: '1px solid #ccc', padding: '20px', borderRadius: '5px' }}>
-        <h3 style={{ marginBottom: '20px', textAlign: 'center' }}>Add Shipment</h3>
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-            <label htmlFor="shipmentID" style={{ minWidth: '120px' }}>Shipment ID</label>
+    <div className="form-container">
+      <section className="form-section">
+        <h3 className="form-title">Add Shipment</h3>
+        <form onSubmit={handleSubmit} className="form-layout">
+          <div className="form-row">
             <input
               type="text"
+              className="form-control"
               id="shipmentID"
               name="ShipmentID"
+              placeholder="Shipment ID"
               value={formData.ShipmentID}
               onChange={handleChange}
               required
-              style={{ flex: '1', marginLeft: '10px' }}
             />
           </div>
-          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-            <label htmlFor="orderID" style={{ minWidth: '120px' }}>Order ID</label>
+ 
+          <div className="form-row">
             <input
               type="text"
+              className="form-control"
               id="orderID"
               name="OrderID"
+              placeholder="Order ID"
               value={formData.OrderID}
               onChange={handleChange}
               required
-              style={{ flex: '1', marginLeft: '10px' }}
             />
           </div>
-          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-            <label htmlFor="shippedDate" style={{ minWidth: '120px' }}>Shipped Date</label>
+ 
+          <div className="form-row">
             <input
               type="date"
+              className="form-control"
               id="shippedDate"
               name="ShippedDate"
+              placeholder="Shipped Date"
               value={formData.ShippedDate}
               onChange={handleChange}
               required
-              style={{ flex: '1', marginLeft: '10px' }}
             />
           </div>
-          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-            <label htmlFor="estimatedArrivalDate" style={{ minWidth: '120px' }}>Estimated Arrival Date</label>
+ 
+          <div className="form-row">
             <input
               type="date"
+              className="form-control"
               id="estimatedArrivalDate"
               name="EstimatedArrivalDate"
+              placeholder="Estimated Arrival Date"
               value={formData.EstimatedArrivalDate}
               onChange={handleChange}
               required
-              style={{ flex: '1', marginLeft: '10px' }}
             />
           </div>
-          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-            <label htmlFor="carrier" style={{ minWidth: '120px' }}>Carrier</label>
+ 
+          <div className="form-row">
             <input
               type="text"
+              className="form-control"
               id="carrier"
               name="Carrier"
+              placeholder="Carrier"
               value={formData.Carrier}
               onChange={handleChange}
               required
-              style={{ flex: '1', marginLeft: '10px' }}
             />
           </div>
-          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-            <label htmlFor="trackingNumber" style={{ minWidth: '120px' }}>Tracking Number</label>
+ 
+          <div className="form-row">
             <input
               type="text"
+              className="form-control"
               id="trackingNumber"
               name="TrackingNumber"
+              placeholder="Tracking Number"
               value={formData.TrackingNumber}
               onChange={handleChange}
               required
-              style={{ flex: '1', marginLeft: '10px' }}
             />
           </div>
-          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-            <label htmlFor="status" style={{ minWidth: '120px' }}>Status</label>
+ 
+          <div className="form-row">
             <select
+              className="form-control"
               id="status"
               name="Status"
               value={formData.Status}
               onChange={handleChange}
               required
-              style={{ flex: '1', marginLeft: '10px' }}
             >
               <option value="Pending">Pending</option>
               <option value="In Transit">In Transit</option>
               <option value="Delivered">Delivered</option>
             </select>
           </div>
-          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-            <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>
+ 
+          <div className="form-submit">
+            <button type="submit" className="btn-primary">
               Add Shipment
             </button>
           </div>
@@ -142,5 +147,6 @@ const AddShipment = () => {
     </div>
   );
 };
-
+ 
 export default AddShipment;
+ 
