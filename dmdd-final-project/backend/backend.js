@@ -1,13 +1,17 @@
 const express = require('express');
 const getDataRouter = require('./routes/getRoutes');
-const postDataRouter = require('./routes/postRoutes'); 
+const postDataRouter = require('./routes/postRoutes');
 const sequelize = require('./databaseConnection/connection');
+const cors = require('cors'); // Import the cors middleware
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware to parse JSON bodies
 app.use(express.json());
+
+// Enable CORS for all origins (replace with specific origin if needed)
+app.use(cors());
 
 // Mount the router on the '/api' path
 app.use('/api', getDataRouter); // Use existing router for GET requests
@@ -24,7 +28,7 @@ app.use((err, req, res, next) => {
   try {
     await sequelize.sync();
     console.log('All models were synchronized successfully.');
-    
+
     // Start the server after syncing models
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`);
