@@ -1,23 +1,24 @@
 import logo from './logo.svg';
+import "bootstrap/dist/css/bootstrap.min.css";
+import AddOrder from './components/addOrder';
+import AddProduct from './components/addProduct';
+import AddShipment from './components/addShipment';
+import AddSupplier from './components/addSupplier';
+import AddWarehouse from './components/addWarehouse';
 import './App.css';
+import Header from './components/header';
+// import AddProduct from './components/addProduct';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     {/* <AddProduct /> */}
+     <Header />
+     <AddOrder />
+     <AddProduct />
+     <AddShipment />
+     <AddWarehouse />
+     <AddSupplier />
     </div>
   );
 }
