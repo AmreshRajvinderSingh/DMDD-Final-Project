@@ -1,0 +1,29 @@
+.update-profit-loss-container {
+    margin: 0 10%;
+  }
+   
+  .profit-loss-table-container {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+   
+  .profit-loss-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+   
+  .profit-loss-table th,
+  .profit-loss-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+   
+  .profit-loss-table th {
+    background-color: #f2f2f2;
+  }
+   
+  .profit-loss-table input {
+    width: 100%;
+    box-sizing: border-box;
+  }

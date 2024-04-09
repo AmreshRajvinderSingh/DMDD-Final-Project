@@ -3,6 +3,7 @@ const getDataRouter = require('./routes/getRoutes');
 const postDataRouter = require('./routes/postRoutes');
 const putDataRouter =require('./routes/putRoutes');
 const sequelize = require('./databaseConnection/connection');
+const dropDataRouter=require('./routes/deleteRoutes')
 const cors = require('cors'); // Import the cors middleware
 
 const app = express();
@@ -18,6 +19,7 @@ app.use(cors());
 app.use('/api', getDataRouter); // Use existing router for GET requests
 app.use('/api', postDataRouter); // Use new router for POST requests
 app.use('/api',putDataRouter);
+app.use('/api',dropDataRouter);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
