@@ -29,8 +29,5 @@ Stock Optimate is a sophisticated, database-driven application designed to revol
 - Always protect your encryption keys and passphrases to prevent unauthorized data access.
 - Regularly review and update your data access policies to ensure compliance with the latest data protection regulations.
 
-## Contributing
-We welcome contributions to the Stock Optimate project. Please read our contributing guidelines before submitting your pull request.
 
-## License
-Stock Optimate is released under the MIT License. See the LICENSE file for more details.
+
